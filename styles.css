@@ -86,6 +86,7 @@ body {
   font-size: 2em;
   color: white;
   border: .05em solid hsl(240, 2%, 23%);
+  background-color: hsl(240, 3%, 7%);
   text-transform: uppercase;
   font-weight: bold;
   display: flex;

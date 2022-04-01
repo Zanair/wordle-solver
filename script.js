@@ -15301,6 +15301,7 @@ const dayOffset = msOffset / 1000 / 60 / 60 / 24
 const targetWord = targetWords[Math.floor(dayOffset)]
 
 startInteraction()
+startResultInteraction()
 
 function startInteraction() {
   document.addEventListener("click", handleMouseClick)
@@ -15310,6 +15311,21 @@ function startInteraction() {
 function stopInteraction() {
   document.removeEventListener("click", handleMouseClick)
   document.removeEventListener("keydown", handleKeyPress)
+}
+
+function startResultInteraction() {
+  document.addEventListener("click", handleResultMouseClick)
+}
+
+function stopResultInteraction() {
+  document.removeEventListener("click", handleResultMouseClick)
+}
+
+function handleResultMouseClick(e) {
+  if (e.target.matches("[data-state]")) {
+    pressTile(e.target)
+    return
+  }
 }
 
 function handleMouseClick(e) {
@@ -15344,6 +15360,10 @@ function handleKeyPress(e) {
     pressKey(e.key)
     return
   }
+}
+function pressTile(tile) {
+  //tile.dataset.state = "wrong"
+  flipTile(tile)
 }
 
 function pressKey(key) {
@@ -15383,10 +15403,28 @@ function submitGuess() {
   }
 
   stopInteraction()
-  activeTiles.forEach((...params) => flipTile(...params, guess))
+  activeTiles.forEach((...params) => flipTiles(...params, guess))
 }
 
-function flipTile(tile, index, array, guess) {
+function flipTile(tile) {
+  const letter = tile.dataset.letter
+  const key = keyboard.querySelector(`[data-key="${letter}"i]`)
+  if (tile.dataset.state == "correct") {
+    tile.dataset.state = "wrong"
+    key.classList.add("wrong")
+  } else if (tile.dataset.state == "wrong") {
+    tile.dataset.state = "wrong-location"
+    key.classList.add("wrong-location")
+  } else if (tile.dataset.state == "wrong-location"){
+    tile.dataset.state = "correct"
+    key.classList.add("correct")
+  } else{
+    tile.dataset.state = "correct"
+    key.classList.add("correct")
+  }
+
+}
+function flipTiles(tile, index, array, guess) {
   const letter = tile.dataset.letter
   const key = keyboard.querySelector(`[data-key="${letter}"i]`)
   setTimeout(() => {
