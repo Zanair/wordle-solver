@@ -71,6 +71,31 @@ body {
   --lightness: 43%;
 }
 
+.suggest-grid {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  flex-grow: 1;
+  grid-template-columns: repeat(5, 5em);
+  grid-template-rows: repeat(1, 5em);
+  gap: .25em;
+  margin-bottom: 1em;
+}
+
+.suggest-tile{
+  font-size: 2em;
+  color: white;
+  border: .075em solid hsl(240, 2%, 23%);
+  background-color: hsl(308, 3%, 45%);
+  text-transform: uppercase;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  transition: transform 250ms linear;
+}
+
 .guess-grid {
   display: grid;
   justify-content: center;
